@@ -98,16 +98,19 @@ SELECT DISTINCT (transmission), COUNT(*) AS Total_Transmission
 FROM [dbo].[car_sales_data ]
 GROUP BY transmission;
 
+---Checking the minimum condition
 SELECT MIN (condition)
 FROM [dbo].[car_sales_data ];
 
-
+---Checking the maximum condition
 SELECT MAX (condition)
 FROM [dbo].[car_sales_data ];
 
+---altering the table to add the new column called condition_bucket
 ALTER TABLE [dbo].[car_sales_data ]
 ADD condition_bucket VARCHAR (500);
 
+---updating the new column to add data into a new column
 UPDATE [dbo].[car_sales_data ]
 SET condition_bucket =
 	 CASE 
