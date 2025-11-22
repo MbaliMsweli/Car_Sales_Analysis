@@ -186,3 +186,43 @@ SET saleprice_bucket =
              WHEN sellingprice between '120001' AND '180000' THEN 'High Range: 120001 to 180000'
              ELSE 'Premium: 180001 to 230000'
          END ;
+
+
+ --This will extract the day of the month from the sale date
+         SELECT saledate,
+         DAY (saledate) AS day_of_month
+         FROM [dbo].[car_sales_data ];
+        
+
+--This extracts the Month Name from sale date  
+         SELECT saledate,
+         DATENAME (MONTH, saledate) AS month_name
+         FROM [dbo].[car_sales_data ];
+      
+
+--This extracts a Year from sale date  
+         SELECT saledate,
+         DATENAME (YEAR, saledate) AS purchase_year
+         FROM [dbo].[car_sales_data ];
+
+--This will extract the day of the week from Purchased Date 
+       SELECT saledate,
+       DATENAME(WEEKDAY, saledate) AS day_of_week
+       FROM [dbo].[car_sales_data ];
+
+---altering the table to add the new columns
+ALTER TABLE [dbo].[car_sales_data ]
+ADD day_of_month INT,
+    month_name VARCHAR(500),
+    purchase_year INT ,
+    day_of_week VARCHAR(500);
+
+---updating the new columns to add data into it
+UPDATE [dbo].[car_sales_data ]
+SET day_of_month =  DAY (saledate),
+    month_name = DATENAME (MONTH, saledate),
+    purchase_year = DATENAME (YEAR, saledate),
+    day_of_week =  DATENAME(WEEKDAY, saledate);
+
+
+  
