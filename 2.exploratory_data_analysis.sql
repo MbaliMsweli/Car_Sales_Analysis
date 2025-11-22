@@ -60,3 +60,58 @@ FROM [dbo].[car_sales_data ];
 --Checking the minimum sales date
 SELECT MIN(saledate) AS Min_SaleDate
 FROM [dbo].[car_sales_data ];
+
+---Checking which seller that has the most selling date
+SELECT TOP 5 seller, COUNT(saledate) AS Total_SalesDate
+FROM [dbo].[car_sales_data ]
+GROUP BY seller
+ORDER BY  COUNT(saledate) DESC;
+
+---Checking which car make that has the most selling date
+SELECT TOP 5 make, COUNT(saledate) AS Total_SalesDate_Per_Make
+FROM [dbo].[car_sales_data ]
+GROUP BY make
+ORDER BY  COUNT(saledate) DESC;
+
+---Checking which car model that has the most selling date
+SELECT TOP 5 model, COUNT(saledate) AS Total_SalesDate_Per_Model
+FROM [dbo].[car_sales_data ]
+GROUP BY model
+ORDER BY  COUNT(saledate) DESC;
+
+---Checking which car body type make that has the most selling date
+SELECT TOP 5 body, COUNT(saledate) AS Total_SalesDate_Per_Body
+FROM [dbo].[car_sales_data ]
+GROUP BY body
+ORDER BY  COUNT(saledate) DESC;
+
+---Checking the minimum odometer
+SELECT MIN (odometer)
+FROM [dbo].[car_sales_data ];
+
+---Checking the maximum odometer
+SELECT MAX (odometer)
+FROM [dbo].[car_sales_data ]
+
+--Counting the number of each transimission 
+SELECT DISTINCT (transmission), COUNT(*) AS Total_Transmission
+FROM [dbo].[car_sales_data ]
+GROUP BY transmission;
+
+SELECT MIN (condition)
+FROM [dbo].[car_sales_data ];
+
+
+SELECT MAX (condition)
+FROM [dbo].[car_sales_data ];
+
+ALTER TABLE [dbo].[car_sales_data ]
+ADD condition_bucket VARCHAR (500);
+
+UPDATE [dbo].[car_sales_data ]
+SET condition_bucket =
+	 CASE 
+             WHEN condition between '1' AND '2' THEN 'Great Condition: 1 to 2'
+             WHEN condition between '3' AND '4' THEN 'Normal Condition: 3 to 4'
+             ELSE 'Poor Condition: 5'
+         END ;
