@@ -18,6 +18,7 @@ SET make = COALESCE(make, 'Unknown'),
     body = COALESCE(body, 'Unknown'),
     transmission = COALESCE(transmission, 'Unknown');
 
+
 --Checking how many different body type in this column
 SELECT DISTINCT(body)
 FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
@@ -55,8 +56,8 @@ FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
 
 ----Checking all cars with a selling price of 1
 SELECT *
-FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
-WHERE sellingprice = 1
+FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
+WHERE sellingprice = 1;
 
 --Checking the minimun year car model
 SELECT MIN(year) AS Min_Year_Model
@@ -121,7 +122,8 @@ FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
 
 --checking the different state in the dataset
 SELECT DISTINCT (state)
-FROM [dbo].[car_sales_data ];
+FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
+
 
 ---checking the number of salesdate per state
 SELECT TOP 5 state, COUNT(saledate) AS Total_SalesDate_Per_State
@@ -136,25 +138,31 @@ ADD condition_bucket VARCHAR (500);
 ---updating the new column (condition_bucket) to add data into it
 UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET condition_bucket =
-	 CASE 
-             WHEN condition between '1' AND '2' THEN 'Great Condition: 1 to 2'
-             WHEN condition between '3' AND '4' THEN 'Normal Condition: 3 to 4'
-             ELSE 'Poor Condition: 5'
-         END ;
+    CASE 
+        WHEN CAST(condition AS INT) BETWEEN 1 AND 2 
+            THEN 'Great Condition: 1 to 2'
+        WHEN CAST(condition AS INT) BETWEEN 3 AND 4 
+            THEN 'Normal Condition: 3 to 4'
+        ELSE 'Poor Condition: 5'
+    END;
+
 
 ---altering the table to add the new column called year_model_bucket
 ALTER TABLE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 ADD year_model_bucket VARCHAR(500);
 
----updating the new column (year_model_bucket) to add data into it
 UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET year_model_bucket =
-	 CASE 
-             WHEN condition between '1982' AND '1990' THEN 'Very Old Models: 1982 to 1990'
-             WHEN condition between '1991' AND '2000' THEN 'Old Models: 1991 to 2000'
-             WHEN condition between '2001' AND '2010' THEN 'Mid Age Models: 2001 to 2010'
-             ELSE 'Newer Models: 2011 to 2015'
-         END ;
+    CASE 
+        WHEN CAST(condition AS INT) BETWEEN 1982 AND 1990 
+            THEN 'Very Old Models: 1982 to 1990'
+        WHEN CAST(condition AS INT) BETWEEN 1991 AND 2000 
+            THEN 'Old Models: 1991 to 2000'
+        WHEN CAST(condition AS INT) BETWEEN 2001 AND 2010 
+            THEN 'Mid Age Models: 2001 to 2010'
+        ELSE 'Newer Models: 2011 to 2015'
+    END;
+
 
        
 ---altering the table to add the new column called odometer_model_bucket
@@ -164,13 +172,18 @@ ADD odometer_bucket VARCHAR(500);
 ---updating the new column (odometer_bucket) to add data into it
 UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET odometer_bucket =
-	 CASE 
-             WHEN odometer between '1' AND '5000' THEN 'Low Mileage: 1 to 5000'
-             WHEN odometer between '50001' AND '150000' THEN 'Medium Mileage: 50001 to 150000'
-             WHEN odometer between '150001' AND '300000' THEN 'High Mileage: 150001 to 300000'
-             WHEN odometer between '300001' AND '600000' THEN 'Very High Mileage: 300001 to 600000'
-             ELSE 'Extreme Mileage: 600001 to 999999'
-         END ;
+    CASE 
+        WHEN CAST(odometer AS INT) BETWEEN 1 AND 5000 
+            THEN 'Low Mileage: 1 to 5000'
+        WHEN CAST(odometer AS INT) BETWEEN 50001 AND 150000 
+            THEN 'Medium Mileage: 50001 to 150000'
+        WHEN CAST(odometer AS INT) BETWEEN 150001 AND 300000 
+            THEN 'High Mileage: 150001 to 300000'
+        WHEN CAST(odometer AS INT) BETWEEN 300001 AND 600000 
+            THEN 'Very High Mileage: 300001 to 600000'
+        ELSE 'Extreme Mileage: 600001 to 999999'
+    END;
+
 
 ---altering the table to add the new column called saleprice_model_bucket
 ALTER TABLE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
@@ -180,11 +193,11 @@ ADD saleprice_bucket VARCHAR(500);
 UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET saleprice_bucket =
 	 CASE 
-             WHEN sellingprice between '1' AND '20000' THEN 'Low Price: 1 to 20000'
-             WHEN sellingprice between '20001' AND '60000' THEN 'Affordable: 20001 to 60000'
-             WHEN sellingprice between '60001' AND '120000' THEN 'Mid Range: 60001 to 120000'
-             WHEN sellingprice between '120001' AND '180000' THEN 'High Range: 120001 to 180000'
-             ELSE 'Premium: 180001 to 230000'
+            WHEN CAST(sellingprice AS INT) between '1' AND '20000' THEN 'Low Price: 1 to 20000'
+            WHEN CAST(sellingprice AS INT) between '20001' AND '60000' THEN 'Affordable: 20001 to 60000'
+            WHEN CAST(sellingprice AS INT) between '60001' AND '120000' THEN 'Mid Range: 60001 to 120000'
+            WHEN CAST(sellingprice AS INT) between '120001' AND '180000' THEN 'High Range: 120001 to 180000'
+            ELSE 'Premium: 180001 to 230000'
          END ;
 
 
