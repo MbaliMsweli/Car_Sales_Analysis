@@ -7,11 +7,11 @@ FROM[Bright_Motors_Car_Sales].[dbo].[car_sales_data];
 
 --checking the nulls
 SELECT *
-FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
+FROM [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 WHERE make IS NULL;
 
 --converting rows with nulls into Unknown
-UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data];
+UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET make = COALESCE(make, 'Unknown'),
     model = COALESCE(model, 'Unknown'),
     trim = COALESCE(trim, 'Unknown'),
