@@ -3,7 +3,7 @@
 
 IF NOT EXISTS (
 SELECT name FROM sys.databases 
-WHERE name = 'Car_Sales_Analysis')
+WHERE name = 'Bright Motors Car Sales')
 BEGIN
-    CREATE DATABASE Car_Sales_Analysis;
+    CREATE DATABASE Bright Motors Car Sales;
 END
