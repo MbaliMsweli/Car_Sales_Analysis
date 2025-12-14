@@ -15,8 +15,8 @@ UPDATE [Bright_Motors_Car_Sales].[dbo].[car_sales_data]
 SET make = COALESCE(make, 'Unknown'),
     model = COALESCE(model, 'Unknown'),
     trim = COALESCE(trim, 'Unknown'),
-    body = COALESCE(body, 'Unknown');
-
+    body = COALESCE(body, 'Unknown'),
+    transmission = COALESCE(transmission, 'Unknown');
 
 --Checking how many different body type in this column
 SELECT DISTINCT(body)
